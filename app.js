@@ -14,7 +14,7 @@ console.log(book);
 const serachResult = document.getElementById("search-result");
 serachResult.innerHTML=""
 book.forEach(books => {
-    const {title,author_name,publisher,publish_date,cover_i}=books
+    const {title,author_name,publisher,publish_date,cover_i,author_key}=books
     const create = document.createElement("div")
     create.innerHTML=`
     <div class="col">
@@ -27,7 +27,8 @@ book.forEach(books => {
                             
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted">Last updated ${publish_date}</small>
+                            <small class="text-muted">Last updated ${publish_date}</small> <br>  
+                            <button class="btn btn-primary" onclick="loadAuthorDeatail('${author_key}')">Author Detail</button>
                         </div>
                     </div>
                 </div>
@@ -43,4 +44,27 @@ document.getElementById("search-value").addEventListener("keypress",function(e){
       }
 })
 
-searchBook("helloworld")
+const loadAuthorDeatail = (auth) =>{
+    fetch(`https://openlibrary.org/authors/${auth}.json`)
+    .then(res=>res.json())
+    .then(data=>displayAuth(data))
+}
+
+
+const displayAuth = (auth) =>{
+    console.log(auth);
+    window.scrollTo(0,40)
+    const {name,birth_date,last_modified,bio}=auth;
+
+    const authDetailView= document.getElementById("auth-detail");
+    authDetailView.innerHTML=`
+                        <div class="card-body">
+                            <h5 class="card-title">Author Name: ${name}</h5>
+                            <h5 class="card-title">Author date of birth : ${birth_date ? birth_date:"N/a"}</h5>
+                            <h5 class="card-title">last update in this book : ${last_modified.value ? last_modified.value:"N/a"}</h5>
+                        </div>
+    `
+
+}
+
+
