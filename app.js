@@ -32,18 +32,19 @@ serachResult.innerHTML=""
 book.slice(0,20).forEach((books) => {
     const {title,author_name,publisher,publish_date,cover_i,author_key}=books
     const create = document.createElement("div")
+    create.classList.add("card-style")
     create.innerHTML=`
     <div class="col">
                     <div class="card h-100">
-                        <img src="https://covers.openlibrary.org/b/id/${cover_i ? cover_i:'N/A'}-M.jpg" class="card-img-top" alt="no img">
+                        <img src="https://covers.openlibrary.org/b/id/${cover_i ? cover_i:'N/A'}-M.jpg" style="height:300px" class="img-fluid card-img-top" alt="no img">
                         <div class="card-body">
                             <h5 class="card-title">Book-title: ${title}</h5>
-                            <h5>Author_Name: ${author_name}</h5>
-                            <h5>Publisher: ${publisher.slice(0,3)}</h5>
+                            <h5>Author_Name: ${author_name.slice(0,1)}</h5>
+                            <h5>Publisher: ${publisher.slice(0,1)}</h5>
                             
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted">Last updated ${publish_date.slice(0,2)}</small> <br>  
+                            <small class="text-muted">Last updated ${publish_date.slice(0,1)}</small> <br>  
                             <button class="btn btn-primary" onclick="loadAuthorDeatail('${author_key}')">Author Detail</button>
                         </div>
                     </div>
