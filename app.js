@@ -1,5 +1,11 @@
-document.getElementById("erro").style.display="none"
-document.getElementById("spiner").style.display="none"
+const disNone = (id) =>{
+    document.getElementById(id).style.display="none"
+}
+
+disNone("erro")
+disNone("spiner")
+// document.getElementById("erro").style.display="none"
+// document.getElementById("spiner").style.display="none"
 const searchBook= (v) =>{
     const serchValue = document.getElementById("search-value");
     const value = serchValue.value;
@@ -8,7 +14,7 @@ const searchBook= (v) =>{
     }
     else{
         document.getElementById("spiner").style.display="block"
-        document.getElementById("erro").style.display="none"
+        disNone("erro")
     }
     fetch(`http://openlibrary.org/search.json?q=${value}`)
     .then(res=> res.json())
@@ -23,21 +29,21 @@ const displayBook= (book) =>{
 console.log(book);
 const serachResult = document.getElementById("search-result");
 serachResult.innerHTML=""
-book.forEach(books => {
+book.slice(0,20).forEach((books) => {
     const {title,author_name,publisher,publish_date,cover_i,author_key}=books
     const create = document.createElement("div")
     create.innerHTML=`
     <div class="col">
                     <div class="card h-100">
-                        <img src="https://covers.openlibrary.org/b/id/${cover_i}-M.jpg" class="card-img-top" alt="...">
+                        <img src="https://covers.openlibrary.org/b/id/${cover_i ? cover_i:'N/A'}-M.jpg" class="card-img-top" alt="no img">
                         <div class="card-body">
                             <h5 class="card-title">Book-title: ${title}</h5>
                             <h5>Author_Name: ${author_name}</h5>
-                            <h5>Publisher: ${publisher}</h5>
+                            <h5>Publisher: ${publisher.slice(0,3)}</h5>
                             
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted">Last updated ${publish_date}</small> <br>  
+                            <small class="text-muted">Last updated ${publish_date.slice(0,2)}</small> <br>  
                             <button class="btn btn-primary" onclick="loadAuthorDeatail('${author_key}')">Author Detail</button>
                         </div>
                     </div>
