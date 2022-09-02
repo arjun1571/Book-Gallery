@@ -1,6 +1,13 @@
+document.getElementById("erro").style.display="none"
 const searchBook= (v) =>{
     const serchValue = document.getElementById("search-value");
     const value = serchValue.value;
+    if(value === ""){
+        document.getElementById("erro").style.display="block"
+    }
+    else{
+        document.getElementById("erro").style.display="none"
+    }
     fetch(`http://openlibrary.org/search.json?q=${value}`)
     .then(res=> res.json())
     .then(data=>displayBook(data.docs))
