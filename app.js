@@ -1,4 +1,5 @@
 document.getElementById("erro").style.display="none"
+document.getElementById("spiner").style.display="none"
 const searchBook= (v) =>{
     const serchValue = document.getElementById("search-value");
     const value = serchValue.value;
@@ -6,6 +7,7 @@ const searchBook= (v) =>{
         document.getElementById("erro").style.display="block"
     }
     else{
+        document.getElementById("spiner").style.display="block"
         document.getElementById("erro").style.display="none"
     }
     fetch(`http://openlibrary.org/search.json?q=${value}`)
@@ -17,6 +19,7 @@ const searchBook= (v) =>{
 
 
 const displayBook= (book) =>{
+    document.getElementById("spiner").style.display="none"
 console.log(book);
 const serachResult = document.getElementById("search-result");
 serachResult.innerHTML=""
